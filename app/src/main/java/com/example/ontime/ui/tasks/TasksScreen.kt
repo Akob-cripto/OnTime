@@ -54,8 +54,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ontime.ui.tasks.model.SmartGroup
-import com.example.ontime.ui.tasks.model.TaskList
-import com.example.ontime.ui.tasks.model.TaskListColors
+import com.example.ontime.ui.tasks.model.ReminderList
+import com.example.ontime.ui.tasks.model.ReminderListColors
 import com.example.ontime.ui.theme.AccentBlue
 import com.example.ontime.ui.theme.Ink
 import com.example.ontime.ui.theme.OnTimeTheme
@@ -102,11 +102,11 @@ fun TasksScreen(
 
 @Composable
 private fun TasksScreenContent(
-    lists: List<TaskList>,
+    lists: List<ReminderList>,
     smartCounts: Map<SmartGroup, Int>,
     onAddList: (name: String, color: Color) -> Unit,
     onOpenSmartGroup: (SmartGroup) -> Unit,
-    onOpenList: (TaskList) -> Unit,
+    onOpenList: (ReminderList) -> Unit,
     onNewReminder: () -> Unit,
 ) {
     var query by remember { mutableStateOf("") }
@@ -329,13 +329,13 @@ private fun SmartGroupTile(
 
 @Composable
 private fun MyListsCard(
-    lists: List<TaskList>,
-    onOpenList: (TaskList) -> Unit,
+    lists: List<ReminderList>,
+    onOpenList: (ReminderList) -> Unit,
 ) {
     Surface(color = Surface1, shape = RoundedCornerShape(12.dp)) {
         Column {
             lists.forEachIndexed { index, list ->
-                TaskListRow(list = list, onClick = { onOpenList(list) })
+                ReminderListRow(list = list, onClick = { onOpenList(list) })
                 if (index != lists.lastIndex) {
                     HorizontalDivider(
                         color = Separator,
@@ -348,7 +348,7 @@ private fun MyListsCard(
 }
 
 @Composable
-private fun TaskListRow(list: TaskList, onClick: () -> Unit) {
+private fun ReminderListRow(list: ReminderList, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -418,7 +418,7 @@ private fun AddListDialog(
     onConfirm: (name: String, color: Color) -> Unit,
 ) {
     var name by remember { mutableStateOf("") }
-    var selectedColor by remember { mutableStateOf(TaskListColors.first()) }
+    var selectedColor by remember { mutableStateOf(ReminderListColors.first()) }
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -435,7 +435,7 @@ private fun AddListDialog(
                 )
                 Spacer(Modifier.height(16.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    TaskListColors.forEach { color ->
+                    ReminderListColors.forEach { color ->
                         val selected = color == selectedColor
                         Box(
                             modifier = Modifier
@@ -473,8 +473,8 @@ private fun TasksScreenPreview() {
     OnTimeTheme {
         TasksScreenContent(
             lists = listOf(
-                TaskList(1, "Покупки", TaskListColors[1], count = 3),
-                TaskList(2, "Работа", TaskListColors[4], count = 7),
+                ReminderList(1, "Покупки", ReminderListColors[1], count = 3),
+                ReminderList(2, "Работа", ReminderListColors[4], count = 7),
             ),
             smartCounts = SmartGroup.entries.associateWith { 0 },
             onAddList = { _, _ -> },

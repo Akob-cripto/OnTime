@@ -3,8 +3,8 @@ package com.example.ontime.ui.tasks
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.example.ontime.ui.tasks.model.Reminder
+import com.example.ontime.ui.tasks.model.ReminderList
 import com.example.ontime.ui.tasks.model.SmartGroup
-import com.example.ontime.ui.tasks.model.TaskList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,8 +15,8 @@ import kotlinx.coroutines.flow.update
  */
 class TasksViewModel : ViewModel() {
 
-    private val _lists = MutableStateFlow<List<TaskList>>(emptyList())
-    val lists: StateFlow<List<TaskList>> = _lists.asStateFlow()
+    private val _lists = MutableStateFlow<List<ReminderList>>(emptyList())
+    val lists: StateFlow<List<ReminderList>> = _lists.asStateFlow()
 
     private val _reminders = MutableStateFlow<List<Reminder>>(emptyList())
     val reminders: StateFlow<List<Reminder>> = _reminders.asStateFlow()
@@ -28,7 +28,7 @@ class TasksViewModel : ViewModel() {
         val trimmed = name.trim()
         if (trimmed.isEmpty()) return
         _lists.update { current ->
-            current + TaskList(id = nextListId++, name = trimmed, color = color)
+            current + ReminderList(id = nextListId++, name = trimmed, color = color)
         }
     }
 

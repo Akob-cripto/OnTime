@@ -6,8 +6,12 @@ import com.example.ontime.ui.theme.AccentGreen
 import com.example.ontime.ui.theme.AccentOrange
 import com.example.ontime.ui.theme.AccentRed
 
-/** Пользовательский список задач (секция «Мои списки»). */
-data class TaskList(
+/**
+ * Пользовательский список напоминаний (одна «папка» в секции «Мои списки»).
+ * Это сущность самого списка, а не коллекция — напоминания хранятся отдельно
+ * и ссылаются на список по имени ([Reminder.listName]).
+ */
+data class ReminderList(
     val id: Long,
     val name: String,
     val color: Color,
@@ -15,7 +19,7 @@ data class TaskList(
 )
 
 /** Палитра для выбора цвета списка при создании. */
-val TaskListColors: List<Color> = listOf(
+val ReminderListColors: List<Color> = listOf(
     AccentRed,
     AccentOrange,
     Color(0xFFFFD60A), // жёлтый
